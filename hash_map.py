@@ -64,7 +64,8 @@ class HashMap:
             for index in range(self.capacity):
                 curr_length = self.buckets[index].length()
                 if curr_length > 0:
-                    self.buckets[index] = LinkedList()
+                    new_list = LinkedList()
+                    self.buckets[index] = new_list
                     self.size -= curr_length
 
     def get(self, key: str) -> object:
