@@ -64,8 +64,7 @@ class HashMap:
             for index in range(self.capacity):
                 curr_length = self.buckets[index].length()
                 if curr_length > 0:
-                    new_list = LinkedList()
-                    self.buckets[index] = new_list
+                    self.buckets[index] = LinkedList()
                     self.size -= curr_length
 
     def get(self, key: str) -> object:
@@ -79,26 +78,19 @@ class HashMap:
         Adds a new value to the hash table
         """
         # searches to see if the key already exists.
+        insert_at = hash_function_1(key) % self.capacity
+        # insert_at2 = hash_function_2(key)
+        destination = self.buckets[insert_at]
         if self.size > 0:
-            for index in range(self.capacity):
-                if self.buckets[index].length() > 0:
-                    for node in self.buckets[index]:
-                        # if found, updates the value and ends loop
-                        if node.key == key:
-                            node.value = value
-                            return
-                        # if end of the list
-                        if node.next is None:
-                            # self.buckets[index].insert(key, value)
-                            # self.size += 1
-                            break
-        # adds the new key and value
-        for index in range(self.capacity):
-            # finds the next open slot
-            if self.buckets[index].length() == 0:
-                self.buckets[index].insert(key, value)
-                self.size += 1
-                return  # breaks the loop
+            if destination.length() > 0:
+                for node in destination:
+                    if node.key == key:
+                        node.value = value
+                        return
+                    if node.next is None:
+                        break
+        destination.insert(key, value)
+        self.size += 1
 
     def remove(self, key: str) -> None:
         """
