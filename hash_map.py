@@ -1,7 +1,7 @@
 # Course: CS261 - Data Structures
 # Assignment: 5
-# Student:
-# Description:
+# Student: Jeremy Vernon
+# Description: hash maps
 
 
 # Import pre-written DynamicArray and LinkedList classes
@@ -58,9 +58,14 @@ class HashMap:
 
     def clear(self) -> None:
         """
-        TODO: Write this implementation
+        Clears the contents of the hash table
         """
-        pass
+        if self.size > 0:
+            for index in range(self.capacity):
+                curr_length = self.buckets[index].length()
+                if curr_length > 0:
+                    self.buckets[index] = LinkedList()
+                    self.size -= curr_length
 
     def get(self, key: str) -> object:
         """
@@ -70,9 +75,29 @@ class HashMap:
 
     def put(self, key: str, value: object) -> None:
         """
-        TODO: Write this implementation
+        Adds a new value to the hash table
         """
-        pass
+        # searches to see if the key already exists.
+        if self.size > 0:
+            for index in range(self.capacity):
+                if self.buckets[index].length() > 0:
+                    for node in self.buckets[index]:
+                        # if found, updates the value and ends loop
+                        if node.key == key:
+                            node.value = value
+                            return
+                        # if end of the list
+                        if node.next is None:
+                            # self.buckets[index].insert(key, value)
+                            # self.size += 1
+                            break
+        # adds the new key and value
+        for index in range(self.capacity):
+            # finds the next open slot
+            if self.buckets[index].length() == 0:
+                self.buckets[index].insert(key, value)
+                self.size += 1
+                return  # breaks the loop
 
     def remove(self, key: str) -> None:
         """
@@ -82,21 +107,33 @@ class HashMap:
 
     def contains_key(self, key: str) -> bool:
         """
-        TODO: Write this implementation
+        Searches for a key. Returns True if found and False if not.
         """
+        if self.size > 0:
+            for index in range(self.capacity):
+                if self.buckets[index].length() > 0:
+                    for node in self.buckets[index]:
+                        if node.value == key:
+                            return True
+                        if node.next is None:
+                            break
         return False
 
     def empty_buckets(self) -> int:
         """
-        TODO: Write this implementation
+        Counts the number of empty buckets
         """
-        return 0
+        count = 0
+        for index in range(self.capacity):
+            if self.buckets[index].length() == 0:
+                count += 1
+        return count
 
     def table_load(self) -> float:
         """
-        TODO: Write this implementation
+        Returns the percentage of the table that is filled
         """
-        return 0.0
+        return self.size / self.capacity
 
     def resize_table(self, new_capacity: int) -> None:
         """
