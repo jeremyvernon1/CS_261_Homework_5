@@ -69,19 +69,34 @@ class HashMap:
 
     def get(self, key: str) -> object:
         """
-        TODO: Write this implementation
+        Returns the value of the associated key.
+        Returns None if not found.
         """
+        if self.size > 0:
+            hash = hash_function_1(key)
+            index = hash % self.capacity
+            destination = self.buckets[index]
+            for node in destination:
+                if node.key == key:
+                    return node.value
+                if node.next is None:
+                    return None
         return None
 
     def put(self, key: str, value: object) -> None:
         """
         Adds a new value to the hash table
         """
-        # searches to see if the key already exists.
-        insert_at = hash_function_1(key) % self.capacity
-        # insert_at2 = hash_function_2(key)
-        destination = self.buckets[insert_at]
-        if self.size > 0:
+        # initializes
+        hash = hash_function_1(key)
+        # print("hash:", hash)
+        array_size = self.size
+        index = hash % self.capacity
+        ## insert_at2 = hash_function_2(key)
+        # print("index:", index, "; capacity:", self.capacity, "; size:", self.size, "; key:", key, "; value:", value)
+        destination = self.buckets[index]
+        # resolves collision
+        if array_size > 0:
             if destination.length() > 0:
                 for node in destination:
                     if node.key == key:
@@ -89,27 +104,42 @@ class HashMap:
                         return
                     if node.next is None:
                         break
+        # inserts new key value pair
         destination.insert(key, value)
         self.size += 1
 
     def remove(self, key: str) -> None:
         """
-        TODO: Write this implementation
+        Removes the node that matches the given key
         """
-        pass
+        if self.size > 0:
+            hash = hash_function_1(key)
+            index = hash % self.capacity
+            destination = self.buckets[index]
+            # if more than one item in SLL
+            if destination.length() > 1:
+                for node in destination:
+                    if node.next is not None and node.next.key == key:
+                        node.next = node.next.next
+            else:
+                for node in destination:
+                    if node.key == key:
+                        node.key = None
+                        node.value = None
 
     def contains_key(self, key: str) -> bool:
         """
         Searches for a key. Returns True if found and False if not.
         """
         if self.size > 0:
-            for index in range(self.capacity):
-                if self.buckets[index].length() > 0:
-                    for node in self.buckets[index]:
-                        if node.value == key:
-                            return True
-                        if node.next is None:
-                            break
+            hash = hash_function_1(key)
+            index = hash % self.capacity
+            destination = self.buckets[index]
+            for node in destination:
+                if node.key == key:
+                    return True
+                if node.next is None:
+                    return False
         return False
 
     def empty_buckets(self) -> int:
@@ -132,13 +162,27 @@ class HashMap:
         """
         TODO: Write this implementation
         """
+        # if new_capacity > 1:
+        #     new_table = HashMap(new_capacity, hash_function_1)
+        #     for index in range(self.capacity):
+        #         for node in self.buckets[index]:
+        #             new_table.buckets[index].insert(node.key, node.value)
+                # rehash links
         pass
 
     def get_keys(self) -> DynamicArray:
         """
-        TODO: Write this implementation
+        Gets all of the keys in a hash table
         """
-        return DynamicArray()
+        result_array = DynamicArray()
+        for index in range(self.capacity):
+            if self.buckets[index].length() > 0:
+                for node in self.buckets[index]:
+                    if node.key is not None:
+                        result_array.append(node.key)
+                    if node.next is None:
+                        break
+        return result_array
 
 
 # BASIC TESTING
