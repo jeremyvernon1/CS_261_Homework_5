@@ -121,6 +121,7 @@ class HashMap:
                 for node in destination:
                     if node.next is not None and node.next.key == key:
                         node.next = node.next.next
+                        self.size -= 1
             # if one item in SLL
             else:
                 for node in destination:
