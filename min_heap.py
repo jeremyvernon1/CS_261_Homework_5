@@ -120,7 +120,9 @@ class MinHeap:
         """
         TODO: Write this implementation
         """
-        pass
+        self.heap = MinHeap(da.data)
+        print("printing:", self.heap)
+        #self.heapify()
 
 #____________________________________________________________________
 
@@ -174,13 +176,13 @@ if __name__ == '__main__':
     #     print(h.remove_min())
     #
     #
-    # print("\nPDF - build_heap example 1")
-    # print("--------------------------")
-    # da = DynamicArray([100, 20, 6, 200, 90, 150, 300])
-    # h = MinHeap(['zebra', 'apple'])
-    # print(h)
-    # h.build_heap(da)
-    # print(h)
-    # da.set_at_index(0, 500)
-    # print(da)
-    # print(h)
+    print("\nPDF - build_heap example 1")
+    print("--------------------------")
+    da = DynamicArray([100, 20, 6, 200, 90, 150, 300])
+    h = MinHeap(['zebra', 'apple'])
+    print(h)
+    h.build_heap(da)
+    print(h)
+    da.set_at_index(0, 500)
+    print(da)
+    print(h)

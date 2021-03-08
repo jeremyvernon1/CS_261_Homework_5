@@ -88,25 +88,28 @@ class HashMap:
         Adds a new value to the hash table
         """
         # initializes
-        hash = hash_function_1(key)
+        hash = hash_function_2(key)
         # print("hash:", hash)
-        array_size = self.size
         index = hash % self.capacity
         ## insert_at2 = hash_function_2(key)
         # print("index:", index, "; capacity:", self.capacity, "; size:", self.size, "; key:", key, "; value:", value)
         destination = self.buckets[index]
         # resolves collision
-        if array_size > 0:
-            if destination.length() > 0:
-                for node in destination:
-                    if node.key == key:
-                        node.value = value
-                        return
-                    if node.next is None:
-                        break
-        # inserts new key value pair
-        destination.insert(key, value)
-        self.size += 1
+        if destination.length() > 0:
+            for node in destination:
+                if node.key == key:
+                    node.value = value
+                    return
+                if node.next is None:
+                    new_node = SLNode(key, value)
+                    node.next = new_node
+                    new_node.next = None
+                    self.size += 1
+                    return
+        else:
+            # inserts new key value pair
+            destination.insert(key, value)
+            self.size += 1
 
     def remove(self, key: str) -> None:
         """
@@ -298,6 +301,8 @@ if __name__ == "__main__":
         m.put('str' + str(i // 3), i * 100)
         if i % 10 == 9:
             print(m.empty_buckets(), m.table_load(), m.size, m.capacity)
+    print(m)
+    print("Expected: 1: str0, 5: str1, 9: str2, 13: str3, 17: str4")
 
 
     print("\nPDF - contains_key example 1")
