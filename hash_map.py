@@ -111,17 +111,18 @@ class HashMap:
         if self.size > 0:
             hash = hash_function_1(key)
             index = hash % self.capacity
-            destination = self.buckets[index]
-            # if more than one item in SLL
-            if destination.length() > 1:
-                for node in destination:
+
+            # if first link
+            if self.buckets[index].head.key == key:
+                self.buckets[index].head = self.buckets[index].head.next
+                self.size -= 1
+
+            # if subsequent link
+            if self.buckets[index].length() > 1:
+                for node in self.buckets[index]:
                     if node.next and node.next.key == key:
                         node.next = node.next.next
                         self.size -= 1
-            # if one item in SLL
-            else:
-                self.buckets[index] = LinkedList()
-                self.size -= 1
 
     def contains_key(self, key: str) -> bool:
         """
