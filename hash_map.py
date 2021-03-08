@@ -112,8 +112,8 @@ class HashMap:
             hash = hash_function_1(key)
             index = hash % self.capacity
 
-            # if first link
-            if self.buckets[index].head.key == key:
+            # if first link exists and matches
+            if self.buckets[index].head.key and self.buckets[index].head.key == key:
                 self.buckets[index].head = self.buckets[index].head.next
                 self.size -= 1
 
@@ -160,6 +160,10 @@ class HashMap:
         TODO: if smaller capacity; rehash links
         """
         if new_capacity > 1:
+
+
+
+
             # if increasing
             if new_capacity > self.capacity:
                 new_buckets = new_capacity - self.capacity
