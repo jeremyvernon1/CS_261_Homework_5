@@ -91,8 +91,6 @@ class HashMap:
         hash1 = hash_function_1(key)
         # hash2 = hash_function_2(key)
         index1 = hash1 % self.capacity
-        # print("key:", key, "; hash1:", hash1, "; hash2:", hash2, "; index1:", index1, "; index2:", hash2 % self.capacity)
-        # print("index:", index, "; capacity:", self.capacity, "; size:", self.size, "; key:", key, "; value:", value)
         destination = self.buckets[index1]
         # resolves collision
         if destination.length() > 0:
@@ -102,11 +100,6 @@ class HashMap:
                     return
                 if node.next is None:
                     break
-                    # new_node = SLNode(key, value)
-                    # node.next = new_node
-                    # new_node.next = None
-                    # self.size += 1
-                    # return
         # inserts new key value pair
         destination.insert(key, value)
         self.size += 1
@@ -206,10 +199,8 @@ class HashMap:
         for index in range(self.capacity):
             if self.buckets[index].length() > 0:
                 for node in self.buckets[index]:
-                    if node.key is not None:
+                    if node.key:
                         result_array.append(node.key)
-                    if node.next is None:
-                        break
         return result_array
 
 
