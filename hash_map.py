@@ -88,12 +88,12 @@ class HashMap:
         Adds a new value to the hash table
         """
         # initializes
-        hash = hash_function_2(key)
-        # print("hash:", hash)
-        index = hash % self.capacity
-        ## insert_at2 = hash_function_2(key)
+        hash1 = hash_function_1(key)
+        # hash2 = hash_function_2(key)
+        index1 = hash1 % self.capacity
+        # print("key:", key, "; hash1:", hash1, "; hash2:", hash2, "; index1:", index1, "; index2:", hash2 % self.capacity)
         # print("index:", index, "; capacity:", self.capacity, "; size:", self.size, "; key:", key, "; value:", value)
-        destination = self.buckets[index]
+        destination = self.buckets[index1]
         # resolves collision
         if destination.length() > 0:
             for node in destination:
