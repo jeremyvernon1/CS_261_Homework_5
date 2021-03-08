@@ -115,15 +115,13 @@ class HashMap:
             # if more than one item in SLL
             if destination.length() > 1:
                 for node in destination:
-                    if node.next is not None and node.next.key == key:
+                    if node.next and node.next.key == key:
                         node.next = node.next.next
                         self.size -= 1
             # if one item in SLL
             else:
-                for node in destination:
-                    if node.key == key:
-                        self.buckets[index] = LinkedList()
-                        self.size -= 1
+                self.buckets[index] = LinkedList()
+                self.size -= 1
 
     def contains_key(self, key: str) -> bool:
         """
@@ -177,14 +175,13 @@ class HashMap:
                         array_size = self.size
                         index = hash % new_capacity
                         destination = self.buckets[index]
-                        if array_size > 0:
-                            if destination.length() > 0:
-                                for node in destination:
-                                    if node.key == old_node.key:
-                                        node.value = old_node.value
-                                        break
-                                    if node.next is None:
-                                        break
+                        if destination.length() > 0:
+                            for node in destination:
+                                if node.key == old_node.key:
+                                    node.value = old_node.value
+                                    break
+                                if node.next is None:
+                                    break
                         # inserts new key value pair
                         destination.insert(key, old_node.value)
                         remove_buckets -= 1
