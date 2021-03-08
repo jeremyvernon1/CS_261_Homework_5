@@ -65,7 +65,7 @@ class HashMap:
                 curr_length = self.buckets[index].length()
                 if curr_length > 0:
                     self.buckets[index] = LinkedList()
-                    self.size -= curr_length
+        self.size = 0
 
     def get(self, key: str) -> object:
         """
@@ -101,15 +101,15 @@ class HashMap:
                     node.value = value
                     return
                 if node.next is None:
-                    new_node = SLNode(key, value)
-                    node.next = new_node
-                    new_node.next = None
-                    self.size += 1
-                    return
-        else:
-            # inserts new key value pair
-            destination.insert(key, value)
-            self.size += 1
+                    break
+                    # new_node = SLNode(key, value)
+                    # node.next = new_node
+                    # new_node.next = None
+                    # self.size += 1
+                    # return
+        # inserts new key value pair
+        destination.insert(key, value)
+        self.size += 1
 
     def remove(self, key: str) -> None:
         """
@@ -301,8 +301,6 @@ if __name__ == "__main__":
         m.put('str' + str(i // 3), i * 100)
         if i % 10 == 9:
             print(m.empty_buckets(), m.table_load(), m.size, m.capacity)
-    print(m)
-    print("Expected: 1: str0, 5: str1, 9: str2, 13: str3, 17: str4")
 
 
     print("\nPDF - contains_key example 1")
