@@ -113,6 +113,7 @@ class HashMap:
             index = hash % self.capacity
 
             self.buckets[index].remove(key)
+            self.size -= 1
 
     def contains_key(self, key: str) -> bool:
         """
