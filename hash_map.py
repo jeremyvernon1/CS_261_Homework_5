@@ -140,7 +140,7 @@ class HashMap:
         """
         Resizes the hash table
         """
-        if new_capacity > 1:
+        if new_capacity >= 1:
             new_table = HashMap(new_capacity, self.hash_function)
 
             if self.size > 0:
