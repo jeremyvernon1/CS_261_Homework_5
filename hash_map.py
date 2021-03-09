@@ -112,8 +112,9 @@ class HashMap:
             hash = hash_function_1(key)
             index = hash % self.capacity
 
-            self.buckets[index].remove(key)
-            self.size -= 1
+            if self.get(key):
+                self.buckets[index].remove(key)
+                self.size -= 1
 
     def contains_key(self, key: str) -> bool:
         """

@@ -114,7 +114,11 @@ class MinHeap:
         """
         TODO: Write this implementation
         """
-        return None
+        # min_node = self.heap[0]
+        # self.heap[0] = None
+        # self.heapify()
+        # return min_node
+        pass
 
     def build_heap(self, da: DynamicArray) -> None:
         """
@@ -168,14 +172,14 @@ if __name__ == '__main__':
     print(h.get_min(), h.get_min())
 
 
-    # print("\nPDF - remove_min example 1")
-    # print("--------------------------")
-    # h = MinHeap([1, 10, 2, 9, 3, 8, 4, 7, 5, 6])
-    # while not h.is_empty():
-    #     print(h, end=' ')
-    #     print(h.remove_min())
-    #
-    #
+    print("\nPDF - remove_min example 1")
+    print("--------------------------")
+    h = MinHeap([1, 10, 2, 9, 3, 8, 4, 7, 5, 6])
+    while not h.is_empty():
+        print(h, end=' ')
+        print(h.remove_min())
+
+
     print("\nPDF - build_heap example 1")
     print("--------------------------")
     da = DynamicArray([100, 20, 6, 200, 90, 150, 300])
