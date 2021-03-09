@@ -112,17 +112,7 @@ class HashMap:
             hash = hash_function_1(key)
             index = hash % self.capacity
 
-            # if first link exists and matches
-            if self.buckets[index].head.key and self.buckets[index].head.key == key:
-                self.buckets[index].head = self.buckets[index].head.next
-                self.size -= 1
-
-            # if subsequent link
-            if self.buckets[index].length() > 1:
-                for node in self.buckets[index]:
-                    if node.next and node.next.key == key:
-                        node.next = node.next.next
-                        self.size -= 1
+            self.buckets[index].remove(key)
 
     def contains_key(self, key: str) -> bool:
         """
@@ -157,41 +147,17 @@ class HashMap:
 
     def resize_table(self, new_capacity: int) -> None:
         """
-        TODO: if smaller capacity; rehash links
+        Resizes the hash table
         """
         if new_capacity > 1:
+            new_table = HashMap(new_capacity, hash_function_1)
 
+            if self.size > 0:
+                for bucket in range(self.capacity):
+                    for node in self.buckets[bucket]:
+                        new_table.put(node.key, node.value)
 
-
-
-            # if increasing
-            if new_capacity > self.capacity:
-                new_buckets = new_capacity - self.capacity
-                while new_buckets > 0:
-                    self.buckets.append(LinkedList())
-                    new_buckets -= 1
-            # if decreasing
-            else:
-                remove_buckets = self.capacity - new_capacity
-                while remove_buckets > 0:
-                    for old_node in self.buckets[(new_capacity + remove_buckets - 1)]:
-                        # rehash
-                        hash = hash_function_1(old_node.key)
-                        array_size = self.size
-                        index = hash % new_capacity
-                        destination = self.buckets[index]
-                        if destination.length() > 0:
-                            for node in destination:
-                                if node.key == old_node.key:
-                                    node.value = old_node.value
-                                    break
-                                if node.next is None:
-                                    break
-                        # inserts new key value pair
-                        destination.insert(key, old_node.value)
-                        remove_buckets -= 1
-
-            self.capacity = new_capacity
+            self = new_table
 
     def get_keys(self) -> DynamicArray:
         """
@@ -354,8 +320,7 @@ if __name__ == "__main__":
     print(m.get('key1'))
     m.remove('key1')
     print(m.get('key1'))
-    m.remove('key4')
-
+    m.remove('key5092933')
 
     print("\nPDF - resize example 1")
     print("----------------------")
