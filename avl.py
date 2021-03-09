@@ -3,12 +3,12 @@
 # Assignment: 5
 # Description: AVL Trees
 
-import random
-
-from bst import BST
-from bst import TreeNode
-from bst import Stack
-from bst import Queue
+# import random
+#
+# from bst import BST
+# from bst import TreeNode
+# from bst import Stack
+# from bst import Queue
 
 
 class AVLTreeNode(TreeNode):

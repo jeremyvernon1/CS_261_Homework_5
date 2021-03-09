@@ -141,14 +141,15 @@ class HashMap:
         Resizes the hash table
         """
         if new_capacity > 1:
-            new_table = HashMap(new_capacity, hash_function_1)
+            new_table = HashMap(new_capacity, self.hash_function)
 
             if self.size > 0:
                 for bucket in range(self.capacity):
                     for node in self.buckets[bucket]:
                         new_table.put(node.key, node.value)
 
-            self = new_table
+            self.buckets = new_table.buckets
+            self.capacity = new_capacity
 
     def get_keys(self) -> DynamicArray:
         """
