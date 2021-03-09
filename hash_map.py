@@ -88,9 +88,7 @@ class HashMap:
         Adds a new value to the hash table
         """
         # initializes
-        hash1 = hash_function_1(key)
-        # hash2 = hash_function_2(key)
-        index1 = hash1 % self.capacity
+        index1 = self.hash_function(key) % self.capacity
         destination = self.buckets[index1]
         # resolves collision
         if destination.length() > 0:
@@ -98,8 +96,6 @@ class HashMap:
                 if node.key == key:
                     node.value = value
                     return
-                if node.next is None:
-                    break
         # inserts new key value pair
         destination.insert(key, value)
         self.size += 1
