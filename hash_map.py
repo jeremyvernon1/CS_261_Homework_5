@@ -73,14 +73,11 @@ class HashMap:
         Returns None if not found.
         """
         if self.size > 0:
-            hash = hash_function_1(key)
-            index = hash % self.capacity
+            index = self.hash_function(key) % self.capacity
             destination = self.buckets[index]
             for node in destination:
                 if node.key == key:
                     return node.value
-                if node.next is None:
-                    return None
         return None
 
     def put(self, key: str, value: object) -> None:
@@ -88,8 +85,8 @@ class HashMap:
         Adds a new value to the hash table
         """
         # initializes
-        index1 = self.hash_function(key) % self.capacity
-        destination = self.buckets[index1]
+        index = self.hash_function(key) % self.capacity
+        destination = self.buckets[index]
         # resolves collision
         if destination.length() > 0:
             for node in destination:
@@ -105,10 +102,9 @@ class HashMap:
         Removes the node that matches the given key
         """
         if self.size > 0:
-            hash = hash_function_1(key)
-            index = hash % self.capacity
+            index = self.hash_function(key) % self.capacity
 
-            if self.get(key):
+            if self.contains_key(key):
                 self.buckets[index].remove(key)
                 self.size -= 1
 
@@ -117,14 +113,11 @@ class HashMap:
         Searches for a key. Returns True if found and False if not.
         """
         if self.size > 0:
-            hash = hash_function_1(key)
-            index = hash % self.capacity
+            index = self.hash_function(key) % self.capacity
             destination = self.buckets[index]
             for node in destination:
                 if node.key == key:
                     return True
-                if node.next is None:
-                    return False
         return False
 
     def empty_buckets(self) -> int:
