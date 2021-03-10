@@ -112,13 +112,12 @@ class MinHeap:
 
     def remove_min(self) -> object:
         """
-        TODO: Write this implementation
+        Removes and returns the root
         """
-        # min_node = self.heap[0]
-        # self.heap[0] = None
-        # self.heapify()
-        # return min_node
-        pass
+        min_node = self.heap[0]
+        new_heap = MinHeap(self.heap.data[1:])
+        self.heap.data = new_heap.heap.data
+        return min_node
 
     def build_heap(self, da: DynamicArray) -> None:
         """
