@@ -93,6 +93,62 @@ class MinHeap:
             last_pos -= 1
             parent_pos = (last_pos // 2)
 
+    def percolate_down(self):
+        # initialize loop
+        # declare variables
+        parent_pos = lower = 0
+        length = self.heap.length()
+        # set to true to begin while loop
+        right_is_lower = True
+        left_is_lower = True
+
+        # loop to percolate higher value down
+        while left_is_lower or right_is_lower:
+            left_child = 2 * parent_pos + 1
+            right_child = 2 * parent_pos + 2
+            # set to false to provide base case
+            right_is_lower = False
+            left_is_lower = False
+
+            # if left child exists and is lower
+            if left_child < length:
+                if self.heap[left_child] < self.heap[parent_pos]:
+                    left_is_lower = True
+
+            # if right child exists and is lower
+            if right_child < length:
+                if self.heap[right_child] < self.heap[parent_pos]:
+                    right_is_lower = True
+
+            # if both left and right lower children
+            if left_is_lower and right_is_lower:
+                if self.heap[left_child] < self.heap[right_child]:
+                    lower = left_child
+                    right_is_lower = False
+                else:
+                    lower = right_child
+                    left_is_lower = False
+
+            # if only left lower child
+            elif left_is_lower:
+                lower = left_child
+                right_is_lower = False
+
+            # if only right child
+            elif right_is_lower:
+                lower = right_child
+                left_is_lower = False
+
+            # swap
+            if right_is_lower or left_is_lower:
+                self.heap.swap(parent_pos, lower)
+
+            # update parent pos for next pass
+            if left_is_lower:
+                parent_pos = left_child
+            elif right_is_lower:
+                parent_pos = right_child
+
     def add(self, node: object) -> None:
         """
         Adds a node to the heap.
@@ -115,8 +171,9 @@ class MinHeap:
         Removes and returns the root
         """
         min_node = self.heap[0]
-        new_heap = MinHeap(self.heap.data[1:])
-        self.heap.data = new_heap.heap.data
+        self.heap.swap(0, -1)
+        self.heap.pop()
+        self.percolate_down()
         return min_node
 
     def build_heap(self, da: DynamicArray) -> None:
