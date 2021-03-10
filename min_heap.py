@@ -122,12 +122,12 @@ class MinHeap:
 
             # if both left and right lower children
             if left_is_lower and right_is_lower:
-                if self.heap[left_child] < self.heap[right_child]:
-                    lower = left_child
-                    right_is_lower = False
-                else:
+                if self.heap[right_child] < self.heap[left_child]:
                     lower = right_child
                     left_is_lower = False
+                else:
+                    lower = left_child
+                    right_is_lower = False
 
             # if only left lower child
             elif left_is_lower:
@@ -170,6 +170,8 @@ class MinHeap:
         """
         Removes and returns the root
         """
+        if self.is_empty():
+            raise MinHeapException
         min_node = self.heap[0]
         self.heap.swap(0, -1)
         self.heap.pop()
