@@ -90,8 +90,7 @@ class MinHeap:
                 self.heap.swap(lower, parent_pos)
 
             # continue checking
-            last_pos -= 1
-            parent_pos = (last_pos // 2)
+            parent_pos -= 1
 
     def percolate_down(self):
         # initialize loop
@@ -180,11 +179,10 @@ class MinHeap:
 
     def build_heap(self, da: DynamicArray) -> None:
         """
-        TODO: Write this implementation
+        Builds a heap from a given array
         """
-        self.heap = MinHeap(da.data)
-        print("printing:", self.heap)
-        #self.heapify()
+        self.heap = DynamicArray(da.data)
+        self.heapify()
 
 #____________________________________________________________________
 
